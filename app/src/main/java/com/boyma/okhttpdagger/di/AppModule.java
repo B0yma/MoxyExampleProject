@@ -2,22 +2,20 @@ package com.boyma.okhttpdagger.di;
 
 import android.app.Application;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class AppModule {
-    Application mApplication;
+    private Application mApplication;
 
     public AppModule(Application mApplication) {
         this.mApplication = mApplication;
     }
 
     @Provides
-    @Singleton
-    Application provideApplication() {
+    @AppScope
+    public Application provideApplication() {
         return mApplication;
     }
 }

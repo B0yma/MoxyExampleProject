@@ -1,15 +1,11 @@
-package com.boyma.okhttpdagger.netpost;
+package com.boyma.okhttpdagger.netpostfeature;
 
 import com.boyma.multikotrecview.models.PostDto;
 
 import java.util.List;
 
 import io.reactivex.Single;
-import retrofit2.Call;
-import retrofit2.http.GET;
 
-public interface Api {
-
-    @GET("/posts")
+public interface IPostDataRepository {
     Single<List<PostDto>> getPosts();
 }

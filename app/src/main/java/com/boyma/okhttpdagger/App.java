@@ -9,7 +9,7 @@ import com.boyma.okhttpdagger.di.NetModule;
 
 public class App extends Application {
 
-    private NetComponent netComponent;
+    private static NetComponent netComponent;
 
     @Override
     public void onCreate() {
@@ -22,7 +22,7 @@ public class App extends Application {
 
     }
 
-    public NetComponent getNetComponent() {
+    public static NetComponent getNetComponent() {
         return netComponent;
     }
 

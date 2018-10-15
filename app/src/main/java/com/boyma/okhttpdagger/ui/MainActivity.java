@@ -1,20 +1,19 @@
 package com.boyma.okhttpdagger.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.boyma.okhttpdagger.App;
+import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.boyma.okhttpdagger.R;
-import com.boyma.okhttpdagger.netpostfeature.di.DaggerNetPostComponent;
-import com.boyma.okhttpdagger.netpostfeature.di.NetPostComponent;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends MvpAppCompatActivity implements IMainActivityView {
 
     private TextView tv;
+
+    @InjectPresenter
+    MainActivityPresenter mpresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,20 +22,25 @@ public class MainActivity extends AppCompatActivity {
 
         initUI();
 
-        NetPostComponent netPostComponent = DaggerNetPostComponent.builder()
-                .netComponent(((App)getApplication()).getNetComponent())
-                .build();
+        mpresenter.onCreate();
+    }
 
-        netPostComponent.getIPostDataRepository().getPosts()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        posts ->{System.out.println("sdf:"+posts.size());},
-                        throwable -> System.out.println(throwable.toString())
-                );
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void initUI() {
         tv = findViewById(R.id.tv);
+    }
+
+    @Override
+    public void showToast(String s) {
+        Toast.makeText(this,s,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setText(String s) {
+        tv.setText(s);
     }
 }

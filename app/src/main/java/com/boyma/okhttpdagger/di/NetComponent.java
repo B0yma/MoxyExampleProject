@@ -1,5 +1,7 @@
 package com.boyma.okhttpdagger.di;
 
+import com.boyma.okhttpdagger.ui.MainActivityPresenter;
+
 import dagger.Component;
 import retrofit2.Retrofit;
 
@@ -8,5 +10,4 @@ import retrofit2.Retrofit;
 public interface NetComponent {
 
     Retrofit getRetrofit();
-
 }
